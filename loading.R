@@ -41,7 +41,7 @@ Twitch_global_data <- read_csv(
   col_types = cols(
     year = col_integer(),
     Month = col_integer(),
-    Hours_watched = col_integer(),
+    Hours_watched = col_number(),
     Avg_viewers = col_integer(),
     Peak_viewers = col_integer(),
     Streams = col_integer(),
