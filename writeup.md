@@ -66,3 +66,41 @@ ggplot(top5) +
 ```
 
 ![](writeup_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+We can also load in a data set that contains some global data to get a
+better idea of how relatively popular these categories are.
+
+``` r
+# loads global dataset with as many variables in ideal types as possible
+Twitch_global_data <- read_csv(
+  "data/Twitch_global_data.csv",
+  col_types = cols(
+    year = col_integer(),
+    Month = col_integer(),
+    Hours_watched = col_number(),
+    Avg_viewers = col_integer(),
+    Peak_viewers = col_integer(),
+    Streams = col_integer(),
+    Avg_channels = col_integer()
+  )
+)
+
+# converts Month variable to a date type
+Twitch_global_data$Month <- (
+  Twitch_global_data %>%
+    select(year, Month) %>%
+    transmute(Month = make_date(year=year, month=Month))
+)$Month
+
+# remove Year variable
+Twitch_global_data <- within(Twitch_global_data, rm(year))
+
+# converts string column to integer
+Twitch_global_data$Games_streamed <- sapply(
+  
+  # removes comma from string
+  sub(",", "", Twitch_global_data$Games_streamed),
+  
+  as.integer
+)
+```
