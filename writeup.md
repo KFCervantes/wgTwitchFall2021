@@ -34,8 +34,8 @@ Twitch_game_data <- read_csv(
 Twitch_game_data$Month <- (
   Twitch_game_data %>%
   select(Year, Month) %>%
-  transmute(Month = make_date(year=Year, month=Month))
-)$Month
+  transmute(tmp = make_date(year=Year, month=Month))
+)$tmp
 
 # remove Year variable
 Twitch_game_data <- within(Twitch_game_data, rm(Year))
@@ -49,23 +49,6 @@ Twitch_game_data$Hours_Streamed <- sapply(
   as.integer
 )
 ```
-
-I was asked by someone in a Discord server about what games were in the
-top 5 popularity for Twitch. To do this, I decided to subset the game
-data and visualize with a barplot.
-
-``` r
-# filters out top 5 for each month
-top5 <- subset(Twitch_game_data, Rank <= 5)
-
-# bar plot
-ggplot(top5) +
-  geom_bar(aes(x=Game, fill=factor(Rank))) + # factor is needed or else color will be grey
-  labs(fill="Monthly Popularity") + # more understandable
-  coord_flip() # more visible on laptop
-```
-
-![](writeup_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 We can also load in a data set that contains some global data to get a
 better idea of how relatively popular these categories are.
@@ -89,8 +72,8 @@ Twitch_global_data <- read_csv(
 Twitch_global_data$Month <- (
   Twitch_global_data %>%
     select(year, Month) %>%
-    transmute(Month = make_date(year=year, month=Month))
-)$Month
+    transmute(tmp = make_date(year=year, month=Month))
+)$tmp
 
 # remove Year variable
 Twitch_global_data <- within(Twitch_global_data, rm(year))
@@ -104,3 +87,54 @@ Twitch_global_data$Games_streamed <- sapply(
   as.integer
 )
 ```
+
+In order to get an idea about the relative popularity of each game, I
+decided to add a column that gives the ratio of hours watched views for
+the game over the site.
+
+``` r
+Twitch_game_data$ratio_hours_watched <- (
+  
+  # subset game data
+  Twitch_game_data %>%
+    select(Rank, Month, Hours_watched) %>%
+    merge(
+      
+      # subset global data
+      Twitch_global_data %>%
+        select(Month, Hours_watched),
+      
+      # inner join by month
+      by = "Month",
+      
+      # rename variables to avoid ambiguity
+      suffixes = c("_game", "_global")
+    ) %>%
+    
+    # create temporary column
+    transmute(tmp = Hours_watched_game / Hours_watched_global)
+  
+  # extract temporary column
+)$tmp
+```
+
+I was asked by someone in a Discord server about what games were in the
+top 5 popularity for Twitch. To do this, I decided to subset the game
+data and visualize with a barplot.
+
+``` r
+# filters out top 5 for each month
+top5 <- subset(Twitch_game_data, Rank <= 5)
+
+# bar plot
+ggplot(top5) +
+  
+  # factor is needed or else color will be grey
+  geom_bar(aes(x=Game, fill=factor(Rank))) +
+  labs(fill="Monthly Popularity") +
+  
+  # more visible on laptop
+  coord_flip()
+```
+
+![](writeup_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
