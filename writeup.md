@@ -138,3 +138,34 @@ ggplot(top5) +
 ```
 
 ![](writeup_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+## *League of Legends*
+
+From the bar graph, we can see that *League of Legends* has been one of
+the most consistently popular games on the site.
+
+``` r
+lol_data <- Twitch_game_data %>%
+  subset(Game == "League of Legends")
+```
+
+Now that we have the subset of the data, we can observe how of the
+metrics have changed over time.
+
+Observing the unique values of the `Monthly Rank` variable, we can see
+that *League of Legends* has consistently been one of the three most
+popular games on the site since January 2016.
+
+Despite remaining in the top 3, we can see that both the monthly rank
+and proportion of hours watched have steadily decreased over time.
+
+``` r
+ggplot(lol_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
+  geom_point(mapping = aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(y = "Proportion of Hours Watched", color = "Monthly Rank")
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](writeup_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
