@@ -169,3 +169,18 @@ ggplot(lol_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](writeup_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Despite decreasing in the rank and the proportion of popularity, the
+number of hours people spend watching *League of Legends* on the site
+seems to be increasing.
+
+``` r
+ggplot(lol_data, mapping = aes(x = Month, y = Hours_watched)) +
+  geom_point(aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(y = "Hours Watched", color = "Monthly Rank")
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](writeup_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
