@@ -163,7 +163,7 @@ and proportion of hours watched have steadily decreased over time.
 ggplot(lol_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
   geom_point(mapping = aes(color = factor(Rank))) +
   geom_smooth() +
-  labs(y = "Proportion of Hours Watched", color = "Monthly Rank")
+  labs(x = "Date", y = "Proportion of Hours Watched", color = "Monthly Rank")
 ```
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
@@ -178,9 +178,47 @@ seems to be increasing.
 ggplot(lol_data, mapping = aes(x = Month, y = Hours_watched)) +
   geom_point(aes(color = factor(Rank))) +
   geom_smooth() +
-  labs(y = "Hours Watched", color = "Monthly Rank")
+  labs(x = "Date", y = "Hours Watched", color = "Monthly Rank")
 ```
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
 ![](writeup_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+## Just Chatting
+
+Just Chatting was introduced in Fall 2018 and has also been consistently
+one of the more popular categories on the site.
+
+``` r
+jc_data <- Twitch_game_data %>%
+  subset(Game == "Just Chatting")
+```
+
+The plots show that the number of and porportion of hours watched has
+been consistently increasing since the category was introduced.
+
+``` r
+ggplot(jc_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
+  geom_point(aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(x = "Date", y = "Proportion of Hours Watched", color = "Monthly Rank")
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](writeup_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+ggplot(jc_data, mapping = aes(x = Month, y = Hours_watched)) +
+  geom_point(aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(x = "Date", y = "Hours Watched", color = "Monthly Rank")
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+![](writeup_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+
+From both graphs, we can see an outlier for September 2018. This is
+because the category was introduced in that month.

@@ -154,7 +154,7 @@ Despite remaining in the top 3, we can see that both the monthly rank and propor
 ggplot(lol_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
   geom_point(mapping = aes(color = factor(Rank))) +
   geom_smooth() +
-  labs(y = "Proportion of Hours Watched", color = "Monthly Rank")
+  labs(x = "Date", y = "Proportion of Hours Watched", color = "Monthly Rank")
 ```
 
 Despite decreasing in the rank and the proportion of popularity, the number of hours people spend watching *League of Legends* on the site seems to be increasing.
@@ -163,5 +163,30 @@ Despite decreasing in the rank and the proportion of popularity, the number of h
 ggplot(lol_data, mapping = aes(x = Month, y = Hours_watched)) +
   geom_point(aes(color = factor(Rank))) +
   geom_smooth() +
-  labs(y = "Hours Watched", color = "Monthly Rank")
+  labs(x = "Date", y = "Hours Watched", color = "Monthly Rank")
 ```
+
+## Just Chatting
+
+Just Chatting was introduced in Fall 2018 and has also been consistently one of the more popular categories on the site.
+
+```{r}
+jc_data <- Twitch_game_data %>%
+  subset(Game == "Just Chatting")
+```
+
+The plots show that the number of and porportion of hours watched has been consistently increasing since the category was introduced. 
+
+```{r}
+ggplot(jc_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
+  geom_point(aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(x = "Date", y = "Proportion of Hours Watched", color = "Monthly Rank")
+
+ggplot(jc_data, mapping = aes(x = Month, y = Hours_watched)) +
+  geom_point(aes(color = factor(Rank))) +
+  geom_smooth() +
+  labs(x = "Date", y = "Hours Watched", color = "Monthly Rank")
+```
+
+From both graphs, we can see an outlier for September 2018. This is because the category was introduced in that month.
