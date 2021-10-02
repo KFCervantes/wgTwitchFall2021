@@ -185,7 +185,56 @@ ggplot(lol_data, mapping = aes(x = Month, y = Hours_watched)) +
 
 ![](writeup_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-## Just Chatting
+## Non-Gaming Categories
+
+Originally, the IRL category was used for a lot of non-gaming streams on
+Twitch.
+
+``` r
+non_game_data <- Twitch_game_data[
+  
+  # subset by searching through list of column names
+  Twitch_game_data$Game %in%
+    
+    # may have to add to this list later
+    c(
+      "IRL",
+      "Social Eating",
+      "Politics",
+      "Music",
+      "Just Chatting",
+      "Pools, Hot Tubs, and Beaches"
+    ),
+]
+```
+
+<!-- Revise this paragraph later -->
+
+These categories do serve different roles, however there is a
+significant amount of overlap in the types of content between them
+
+``` r
+ggplot(non_game_data, mapping = aes(x = Month, y = ratio_hours_watched, size = 1 / Rank)) +
+  geom_point(aes(color = Game)) +
+  labs(x = "Date", y = "Ratio of Hours Watched", size = "1 / (Monthly Rank)")
+```
+
+![](writeup_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+ggplot(non_game_data, mapping = aes(x = Month, y = Hours_watched, size = 1 / Rank)) +
+  geom_point(aes(color = Game)) +
+  labs(x = "Date", y = "Hours Watched", size = "1 / (Monthly Rank)")
+```
+
+![](writeup_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+
+From the graphs, we can see that both the proportion and number of hours
+watched for non-gaming categories has been increasing on Twitch. We can
+also see that the IRL and Just Chatting categories have usually
+accounted for most of hours watched among the non-gaming categories.
+
+### Just Chatting
 
 Just Chatting was introduced in Fall 2018 and has also been consistently
 one of the more popular categories on the site.
@@ -207,7 +256,7 @@ ggplot(jc_data, mapping = aes(x = Month, y = ratio_hours_watched)) +
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-![](writeup_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 ggplot(jc_data, mapping = aes(x = Month, y = Hours_watched)) +
@@ -218,7 +267,7 @@ ggplot(jc_data, mapping = aes(x = Month, y = Hours_watched)) +
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-![](writeup_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](writeup_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 From both graphs, we can see an outlier for September 2018. This is
 because the category was introduced in that month.
