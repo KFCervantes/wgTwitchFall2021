@@ -192,12 +192,12 @@ non_game_data <- Twitch_game_data[
 These categories do serve different roles, however there is a significant amount of overlap in the types of content between them
 
 ```{r}
-ggplot(non_game_data, mapping = aes(x = Month, y = ratio_hours_watched, size = 1 / Rank)) +
+ggplot(non_game_data, mapping = aes(x = Month, y = ratio_hours_watched, size = 0.1 / Rank)) +
   geom_point(aes(color = Game)) +
-  labs(x = "Date", y = "Ratio of Hours Watched", size = "1 / (Monthly Rank)")
-ggplot(non_game_data, mapping = aes(x = Month, y = Hours_watched, size = 1 / Rank)) +
+  labs(x = "Date", y = "Ratio of Hours Watched", size = "1 / 10(Monthly Rank)")
+ggplot(non_game_data, mapping = aes(x = Month, y = Hours_watched, size = 0.1 / Rank)) +
   geom_point(aes(color = Game)) +
-  labs(x = "Date", y = "Hours Watched", size = "1 / (Monthly Rank)")
+  labs(x = "Date", y = "Hours Watched", size = "1 / 10(Monthly Rank)")
 ```
 
 From the graphs, we can see that both the proportion and number of hours watched for non-gaming categories has been increasing on Twitch. We can also see that the IRL and Just Chatting categories have usually accounted for most of hours watched among the non-gaming categories.

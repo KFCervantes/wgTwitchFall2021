@@ -214,17 +214,17 @@ These categories do serve different roles, however there is a
 significant amount of overlap in the types of content between them
 
 ``` r
-ggplot(non_game_data, mapping = aes(x = Month, y = ratio_hours_watched, size = 1 / Rank)) +
+ggplot(non_game_data, mapping = aes(x = Month, y = ratio_hours_watched, size = 0.1 / Rank)) +
   geom_point(aes(color = Game)) +
-  labs(x = "Date", y = "Ratio of Hours Watched", size = "1 / (Monthly Rank)")
+  labs(x = "Date", y = "Ratio of Hours Watched", size = "1 / 10(Monthly Rank)")
 ```
 
 ![](writeup_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-ggplot(non_game_data, mapping = aes(x = Month, y = Hours_watched, size = 1 / Rank)) +
+ggplot(non_game_data, mapping = aes(x = Month, y = Hours_watched, size = 0.1 / Rank)) +
   geom_point(aes(color = Game)) +
-  labs(x = "Date", y = "Hours Watched", size = "1 / (Monthly Rank)")
+  labs(x = "Date", y = "Hours Watched", size = "1 / 10(Monthly Rank)")
 ```
 
 ![](writeup_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
