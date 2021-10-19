@@ -67,3 +67,5 @@ Twitch_global_data$Games_streamed <- sapply(
   
   as.integer
 )
+
+# adding this test line
